@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أورا آرت | متجر اللوحات الفنية المؤطرة الفاخرة</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- شريط التنقل -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">AURA <span>ART</span></a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#hero" class="active">الرئيسية</a>
+        <a href="#products">جميع اللوحات</a>
+        <a href="#categories">التصنيفات</a>
+        <a href="#custom-design">تصميم خاص</a>
+        <a href="#about">من نحن</a>
+      </nav>
+      <div class="nav-icons">
+        <button class="icon-btn" id="searchBtn" title="بحث"><i class="fas fa-search"></i></button>
+        <button class="icon-btn" id="accountBtn" title="حسابي"><i class="fas fa-user"></i></button>
+        <button class="icon-btn" id="cartBtn" title="السلة">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge" id="cartBadge">0</span>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- القسم الرئيسي Hero -->
+  <section id="hero" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>حوّل جدرانك إلى حكاية من الفن</h1>
+      <p>مجموعة حصرية من اللوحات الفنية الفاخرة المؤطرة بأعلى معايير الجودة والتصاميم التي تلائم المساحات المتميزة.</p>
+      <div class="hero-btns">
+        <a href="#products" class="btn btn-gold">اكتشف المجموعة</a>
+        <a href="#custom-design" class="btn btn-outline">صمم لوحتك الخاصة</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- المميزات -->
+  <section class="features-section">
+    <div class="features-grid">
+      <div class="feature-item">
+        <i class="fas fa-gem"></i>
+        <h3>إطارات فاخرة</h3>
+        <p>خامات ومواد عالية الجودة متينة ومقاومة للزمن.</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-paint-brush"></i>
+        <h3>تصاميم متناسقة</h3>
+        <p>أعمال فنية بروح حديثة تلائم أرقى الديكورات.</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-ruler-combined"></i>
+        <h3>مقاسات متعددة</h3>
+        <p>خيارات متنوعة تناسب الجدران والمساحات المختلفة.</p>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-truck-fast"></i>
+        <h3>توصيل آمن</h3>
+        <p>تغليف فاخر ومقاوم للصدمات لضمان وصول لوحتك سليمة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم التصنيفات -->
+  <section id="categories" class="categories-section">
+    <h2 class="section-title">التصنيفات <span>الفنية</span></h2>
+    <div class="categories-grid" id="categoriesGrid">
+      <div class="category-card" data-cat="abstract">
+        <h3>الفن التجريدي</h3>
+      </div>
+      <div class="category-card" data-cat="nature">
+        <h3>الطبيعة والمناظر</h3>
+      </div>
+      <div class="category-card" data-cat="calligraphy">
+        <h3>الخط العربي</h3>
+      </div>
+      <div class="category-card" data-cat="modern">
+        <h3>اللوحات العصرية</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- قسم المنتجات -->
+  <section id="products" class="products-section">
+    <h2 class="section-title">المنتجات <span>المميزة</span></h2>
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="ابحث عن لوحة...">
+      <select id="categoryFilter">
+        <option value="all">كل التصنيفات</option>
+        <option value="abstract">تجريدي</option>
+        <option value="nature">طبيعة</option>
+        <option value="calligraphy">خط عربي</option>
+      </select>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <!-- يتم تحميل المنتجات من Supabase عبر app.js -->
+      <div class="loading-spinner">جاري تحميل اللوحات...</div>
+    </div>
+  </section>
+
+  <!-- تصميم لوحة خاصة -->
+  <section id="custom-design" class="custom-section">
+    <h2 class="section-title">صمم <span>لوحتك الخاصة</span></h2>
+    <form class="custom-form" id="customArtForm">
+      <div class="form-group">
+        <label>رفع الصورة الفنية:</label>
+        <input type="file" id="customImageInput" accept="image/*" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>حجم اللوحة:</label>
+          <select id="customSize">
+            <option value="S">صغير (40x60 سم) - 25.000 ر.ع</option>
+            <option value="M" selected>وسط (60x90 سم) - 40.000 ر.ع</option>
+            <option value="L">كبير (80x120 سم) - 60.000 ر.ع</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>لون الإطار:</label>
+          <select id="customFrame">
+            <option value="gold">ذهبي فاخر</option>
+            <option value="black">أسود فحمي</option>
+            <option value="wood">خشب طبيعي</option>
+          </select>
+        </div>
+      </div>
+      <div class="price-display">
+        المبلغ التقديري: <span id="calculatedPrice">40.000</span> ر.ع
+      </div>
+      <button type="submit" class="btn btn-gold btn-block">إرسال طلب اللوحة الخاصة</button>
+    </form>
+  </section>
+
+  <!-- من نحن -->
+  <section id="about" class="about-section">
+    <div class="about-content">
+      <h2>عن متجر AURA ART</h2>
+      <p>نحن منصة متخصصة في اختيار وإنتاج أجود أنواع اللوحات المؤطرة المصممة لإضافة لمسة جمالية وفخمة لكل بيت ومكتب في سلطنة عمان. نهتم بأدق التفاصيل بدءاً من طباعة الألوان حتى اختيار وتثبيت الإطارات.</p>
+    </div>
+  </section>
+
+  <!-- التذييل -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#" class="logo">AURA <span>ART</span></a>
+        <p>الفن الفاخر في مساحتك الخاصة.</p>
+      </div>
+      <div class="footer-links">
+        <h4>روابط سريعة</h4>
+        <a href="#products">اللوحات</a>
+        <a href="#custom-design">طلب خاص</a>
+        <a href="#about">عن المتجر</a>
+      </div>
+      <div class="footer-contact">
+        <h4>التواصل</h4>
+        <p>مسقط، سلطنة عمان</p>
+        <p>support@auraart.om</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Aura Art. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <!-- لوحة جانبيّة للسلة Shopping Cart Modal -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>سلة التسوق</h3>
+      <button class="close-btn" id="closeCart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="empty-cart-msg">السلة فارغة حالياً</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>الإجمالي:</span>
+        <span id="cartTotal">0.000</span> ر.ع
+      </div>
+      <button class="btn btn-gold btn-block" id="checkoutBtn">إتمام الشراء</button>
+    </div>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
